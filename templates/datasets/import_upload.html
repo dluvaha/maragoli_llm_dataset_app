@@ -1,0 +1,149 @@
+{% extends 'base.html' %}
+
+{% block title %}Import Spreadsheet — Maragoli LLM Dataset{% endblock %}
+
+{% block content %}
+<div class="max-w-3xl mx-auto">
+    <div class="mb-6">
+        <h1 class="text-2xl font-bold text-gray-900">Bulk Import from Spreadsheet</h1>
+        <p class="mt-1 text-sm text-gray-500">Upload a spreadsheet file containing Maragoli-English translation pairs</p>
+    </div>
+
+    <!-- Supported Formats -->
+    <div class="bg-blue-50 border border-blue-200 rounded-lg p-5 mb-6">
+        <h3 class="text-sm font-semibold text-blue-800 mb-3">Supported File Formats</h3>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            <div class="bg-white rounded-lg p-3 text-center border border-blue-100">
+                <div class="text-lg font-bold text-green-600">.xlsx</div>
+                <div class="text-xs text-gray-500">Excel 2007+</div>
+            </div>
+            <div class="bg-white rounded-lg p-3 text-center border border-blue-100">
+                <div class="text-lg font-bold text-green-600">.xls</div>
+                <div class="text-xs text-gray-500">Excel 97-2003</div>
+            </div>
+            <div class="bg-white rounded-lg p-3 text-center border border-blue-100">
+                <div class="text-lg font-bold text-blue-600">.ods</div>
+                <div class="text-xs text-gray-500">LibreOffice Calc</div>
+            </div>
+            <div class="bg-white rounded-lg p-3 text-center border border-blue-100">
+                <div class="text-lg font-bold text-purple-600">.csv</div>
+                <div class="text-xs text-gray-500">CSV Text</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Instructions -->
+    <div class="bg-blue-50 border border-blue-200 rounded-lg p-5 mb-6">
+        <h3 class="text-sm font-semibold text-blue-800 mb-2">File Requirements</h3>
+        <ul class="text-sm text-blue-700 space-y-1">
+            <li>&#8226; Required columns: <code class="bg-blue-100 px-1 rounded">maragoli_text</code> and <code class="bg-blue-100 px-1 rounded">english_text</code></li>
+            <li>&#8226; Optional columns: <code class="bg-blue-100 px-1 rounded">category</code>, <code class="bg-blue-100 px-1 rounded">source</code>, <code class="bg-blue-100 px-1 rounded">confidence_score</code></li>
+            <li>&#8226; Column headers are <strong>case-insensitive</strong>, spaces/hyphens are handled automatically</li>
+            <li>&#8226; Duplicate entries will be detected and skipped during preview</li>
+            <li>&#8226; First row must contain column headers (not data)</li>
+        </ul>
+    </div>
+
+    <!-- Accepted column names -->
+    <div class="bg-green-50 border border-green-200 rounded-lg p-5 mb-6">
+        <h3 class="text-sm font-semibold text-green-800 mb-2">Accepted Column Name Variations</h3>
+        <div class="text-sm text-green-700 space-y-2">
+            <div>
+                <span class="font-medium">Maragoli column:</span>
+                <code class="ml-1 bg-green-100 px-1 rounded text-xs">maragoli_text</code>
+                <code class="ml-1 bg-green-100 px-1 rounded text-xs">Maragoli Text</code>
+                <code class="ml-1 bg-green-100 px-1 rounded text-xs">Maragoli</code>
+                <code class="ml-1 bg-green-100 px-1 rounded text-xs">MARAGOLI</code>
+                <code class="ml-1 bg-green-100 px-1 rounded text-xs">lumaragoli</code>
+                <code class="ml-1 bg-green-100 px-1 rounded text-xs">luyalogoli</code>
+            </div>
+            <div>
+                <span class="font-medium">English column:</span>
+                <code class="ml-1 bg-green-100 px-1 rounded text-xs">english_text</code>
+                <code class="ml-1 bg-green-100 px-1 rounded text-xs">English Text</code>
+                <code class="ml-1 bg-green-100 px-1 rounded text-xs">English</code>
+                <code class="ml-1 bg-green-100 px-1 rounded text-xs">translation</code>
+                <code class="ml-1 bg-green-100 px-1 rounded text-xs">english_translation</code>
+            </div>
+        </div>
+    </div>
+
+    <!-- Upload Form -->
+    <div class="bg-white shadow rounded-lg p-6">
+        <form method="post" enctype="multipart/form-data" novalidate>
+            {% csrf_token %}
+
+            <div class="mb-6">
+                <label class="block text-sm font-medium text-gray-700 mb-2">Select Spreadsheet File</label>
+                <div class="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-brand-400 transition-colors">
+                    <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                    </svg>
+                    <p class="mt-2 text-sm text-gray-600">Drag and drop your spreadsheet file here, or click to browse</p>
+                    <p class="mt-1 text-xs text-gray-500">.xlsx, .xls, .ods, or .csv files up to 10MB</p>
+                    <input type="file" name="spreadsheet_file" accept=".xlsx,.xls,.ods,.fods,.csv" required
+                        class="mt-3 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 cursor-pointer">
+                </div>
+                {% if form.spreadsheet_file.errors %}
+                <p class="mt-2 text-xs text-red-600">{{ form.spreadsheet_file.errors.0 }}</p>
+                {% endif %}
+            </div>
+
+            <div class="mb-6">
+                <label class="flex items-center cursor-pointer group">
+                    <input type="checkbox" name="validate_all" value="true"
+                        class="rounded border-gray-300 text-green-600 shadow-sm focus:border-green-500 focus:ring-green-500 h-4 w-4 cursor-pointer">
+                    <div class="ml-3">
+                        <span class="text-sm font-medium text-gray-700 group-hover:text-green-700 transition-colors">Validate all imported records automatically</span>
+                        <p class="text-xs text-gray-500">When checked, all imported entries will be marked as validated immediately</p>
+                    </div>
+                </label>
+            </div>
+
+            <div class="flex justify-end">
+                <button type="submit" class="inline-flex items-center px-6 py-2 text-sm font-medium text-white bg-brand-600 rounded-lg hover:bg-brand-700 transition-colors shadow-sm">
+                    <svg class="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4 4m0 0l-4-4m4 4V4"/></svg>
+                    Preview Import
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Sample Format -->
+    <div class="mt-6 bg-white shadow rounded-lg p-6">
+        <h3 class="text-sm font-semibold text-gray-900 mb-3">Expected Spreadsheet Format</h3>
+        <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-200 text-sm">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th class="px-4 py-2 text-left font-medium text-gray-500">maragoli_text</th>
+                        <th class="px-4 py-2 text-left font-medium text-gray-500">english_text</th>
+                        <th class="px-4 py-2 text-left font-medium text-gray-500">category</th>
+                        <th class="px-4 py-2 text-left font-medium text-gray-500">source</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                    <tr>
+                        <td class="px-4 py-2 text-gray-900">Murembe</td>
+                        <td class="px-4 py-2 text-gray-900">How are you?</td>
+                        <td class="px-4 py-2 text-gray-500">Greetings</td>
+                        <td class="px-4 py-2 text-gray-500">Community</td>
+                    </tr>
+                    <tr>
+                        <td class="px-4 py-2 text-gray-900">Ndakhusura</td>
+                        <td class="px-4 py-2 text-gray-900">I thank you</td>
+                        <td class="px-4 py-2 text-gray-500">Greetings</td>
+                        <td class="px-4 py-2 text-gray-500">Community</td>
+                    </tr>
+                    <tr>
+                        <td class="px-4 py-2 text-gray-900">Igulu riamabwerere</td>
+                        <td class="px-4 py-2 text-gray-900">The sky is cloudy</td>
+                        <td class="px-4 py-2 text-gray-500">Weather</td>
+                        <td class="px-4 py-2 text-gray-500">Elder</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

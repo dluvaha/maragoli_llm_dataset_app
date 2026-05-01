@@ -1,0 +1,751 @@
+[
+  {
+    "model": "datasets.datasetcategory",
+    "pk": 2,
+    "fields": {
+      "name": "Daily Life",
+      "description": "Everyday conversations about daily activities",
+      "slug": "daily-life",
+      "created_at": "2026-04-30T18:06:48.598797+00:00",
+      "updated_at": "2026-04-30T18:06:48.598813+00:00"
+    }
+  },
+  {
+    "model": "datasets.datasetcategory",
+    "pk": 5,
+    "fields": {
+      "name": "Family",
+      "description": "Family relationships and terms",
+      "slug": "family",
+      "created_at": "2026-04-30T18:06:48.600614+00:00",
+      "updated_at": "2026-04-30T18:06:48.600627+00:00"
+    }
+  },
+  {
+    "model": "datasets.datasetcategory",
+    "pk": 6,
+    "fields": {
+      "name": "Food",
+      "description": "Food items, cooking, and eating",
+      "slug": "food",
+      "created_at": "2026-04-30T18:06:48.601184+00:00",
+      "updated_at": "2026-04-30T18:06:48.601194+00:00"
+    }
+  },
+  {
+    "model": "datasets.datasetcategory",
+    "pk": 1,
+    "fields": {
+      "name": "Greetings",
+      "description": "Common greetings and pleasantries in Maragoli",
+      "slug": "greetings",
+      "created_at": "2026-04-30T18:06:48.597642+00:00",
+      "updated_at": "2026-04-30T18:06:48.597691+00:00"
+    }
+  },
+  {
+    "model": "datasets.datasetcategory",
+    "pk": 4,
+    "fields": {
+      "name": "Nature",
+      "description": "Terms related to nature, weather, and environment",
+      "slug": "nature",
+      "created_at": "2026-04-30T18:06:48.600029+00:00",
+      "updated_at": "2026-04-30T18:06:48.600041+00:00"
+    }
+  },
+  {
+    "model": "datasets.datasetcategory",
+    "pk": 7,
+    "fields": {
+      "name": "Numbers",
+      "description": "Counting and numerical expressions",
+      "slug": "numbers",
+      "created_at": "2026-04-30T18:06:48.601722+00:00",
+      "updated_at": "2026-04-30T18:06:48.601731+00:00"
+    }
+  },
+  {
+    "model": "datasets.datasetcategory",
+    "pk": 3,
+    "fields": {
+      "name": "Proverbs",
+      "description": "Traditional Maragoli proverbs and sayings",
+      "slug": "proverbs",
+      "created_at": "2026-04-30T18:06:48.599447+00:00",
+      "updated_at": "2026-04-30T18:06:48.599458+00:00"
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 1,
+    "fields": {
+      "password": "pbkdf2_sha256$1200000$xGbQeOkIIhisVPw7GwxARc$iDq8knAQJ31cIKdqS2yrfWrtxttP0uxj1Rd5mcumVy4=",
+      "last_login": null,
+      "is_superuser": true,
+      "username": "admin",
+      "first_name": "",
+      "last_name": "",
+      "email": "admin@maragoli.llm",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2026-04-30T18:06:53.521321+00:00"
+    }
+  },
+  {
+    "model": "datasets.maragolidataset",
+    "pk": 41,
+    "fields": {
+      "maragoli_text": "Itanu",
+      "english_text": "Five",
+      "category": 7,
+      "source": "Community elder",
+      "confidence_score": 1.0,
+      "is_validated": true,
+      "validated_by": null,
+      "content_hash": "35299aa63ee260a83fe483c37e2e5c38cbf85dc72bb44b84b66453913bb901b1",
+      "created_at": "2026-04-30T18:06:48.626244+00:00",
+      "updated_at": "2026-04-30T18:06:48.626272+00:00"
+    }
+  },
+  {
+    "model": "datasets.maragolidataset",
+    "pk": 40,
+    "fields": {
+      "maragoli_text": "Inya",
+      "english_text": "Four",
+      "category": 7,
+      "source": "Community elder",
+      "confidence_score": 1.0,
+      "is_validated": true,
+      "validated_by": null,
+      "content_hash": "4182d5ef35ba40cd5e317fc10ac9ab13285086f1d76fefe0332345adf10298e9",
+      "created_at": "2026-04-30T18:06:48.625730+00:00",
+      "updated_at": "2026-04-30T18:06:48.625742+00:00"
+    }
+  },
+  {
+    "model": "datasets.maragolidataset",
+    "pk": 39,
+    "fields": {
+      "maragoli_text": "Isatu",
+      "english_text": "Three",
+      "category": 7,
+      "source": "Community elder",
+      "confidence_score": 1.0,
+      "is_validated": true,
+      "validated_by": null,
+      "content_hash": "ddb8d6dae0b1ae319ccb2073516a736765ecf7d9c7bbfe1733283e49433610ca",
+      "created_at": "2026-04-30T18:06:48.625152+00:00",
+      "updated_at": "2026-04-30T18:06:48.625162+00:00"
+    }
+  },
+  {
+    "model": "datasets.maragolidataset",
+    "pk": 38,
+    "fields": {
+      "maragoli_text": "Ibili",
+      "english_text": "Two",
+      "category": 7,
+      "source": "Community elder",
+      "confidence_score": 1.0,
+      "is_validated": true,
+      "validated_by": null,
+      "content_hash": "8e7e915ad341bf2c7a7c0556ecd8947229bf1b98f960066ab11233772aabefe2",
+      "created_at": "2026-04-30T18:06:48.624603+00:00",
+      "updated_at": "2026-04-30T18:06:48.624612+00:00"
+    }
+  },
+  {
+    "model": "datasets.maragolidataset",
+    "pk": 37,
+    "fields": {
+      "maragoli_text": "Imwe",
+      "english_text": "One",
+      "category": 7,
+      "source": "Community elder",
+      "confidence_score": 1.0,
+      "is_validated": true,
+      "validated_by": null,
+      "content_hash": "5071f298ce452a658fb80d4bd4ac66fceade5e08215d31d0aeae171ee125fc54",
+      "created_at": "2026-04-30T18:06:48.624089+00:00",
+      "updated_at": "2026-04-30T18:06:48.624098+00:00"
+    }
+  },
+  {
+    "model": "datasets.maragolidataset",
+    "pk": 36,
+    "fields": {
+      "maragoli_text": "Tsikukhu",
+      "english_text": "Porridge",
+      "category": 6,
+      "source": "Community elder",
+      "confidence_score": 1.0,
+      "is_validated": true,
+      "validated_by": null,
+      "content_hash": "690b442a941a761ebdb4c906f90b80903d16ca812bb9b7e71e85a68484ca889c",
+      "created_at": "2026-04-30T18:06:48.623543+00:00",
+      "updated_at": "2026-04-30T18:06:48.623552+00:00"
+    }
+  },
+  {
+    "model": "datasets.maragolidataset",
+    "pk": 35,
+    "fields": {
+      "maragoli_text": "Embirizi",
+      "english_text": "Vegetables",
+      "category": 6,
+      "source": "Field researcher",
+      "confidence_score": 1.0,
+      "is_validated": true,
+      "validated_by": null,
+      "content_hash": "efa5affa0a07e2b113ce46b5b1d5a7d6c7664064a5c97ffb1394106ec00e7e4f",
+      "created_at": "2026-04-30T18:06:48.623019+00:00",
+      "updated_at": "2026-04-30T18:06:48.623030+00:00"
+    }
+  },
+  {
+    "model": "datasets.maragolidataset",
+    "pk": 34,
+    "fields": {
+      "maragoli_text": "Ebiyogo",
+      "english_text": "Sweet potatoes",
+      "category": 6,
+      "source": "Community elder",
+      "confidence_score": 1.0,
+      "is_validated": true,
+      "validated_by": null,
+      "content_hash": "90d39f7cdaad040ae2816587f2ab13cee109ffb8f1ddf5c1ebe9034b8b36c017",
+      "created_at": "2026-04-30T18:06:48.622410+00:00",
+      "updated_at": "2026-04-30T18:06:48.622420+00:00"
+    }
+  },
+  {
+    "model": "datasets.maragolidataset",
+    "pk": 33,
+    "fields": {
+      "maragoli_text": "Amasi",
+      "english_text": "Milk",
+      "category": 6,
+      "source": "Community elder",
+      "confidence_score": 1.0,
+      "is_validated": true,
+      "validated_by": null,
+      "content_hash": "e88d4aa28bf7cecb40b7cc171e403148bc49d1b7265107c8134bbd37f0444fa9",
+      "created_at": "2026-04-30T18:06:48.621886+00:00",
+      "updated_at": "2026-04-30T18:06:48.621896+00:00"
+    }
+  },
+  {
+    "model": "datasets.maragolidataset",
+    "pk": 32,
+    "fields": {
+      "maragoli_text": "Endaka",
+      "english_text": "Banana / Plantain",
+      "category": 6,
+      "source": "Community elder",
+      "confidence_score": 1.0,
+      "is_validated": true,
+      "validated_by": null,
+      "content_hash": "99abc9f3fd7f19fd63010c6133db7830760da7a630881770d8014ba60202b991",
+      "created_at": "2026-04-30T18:06:48.621342+00:00",
+      "updated_at": "2026-04-30T18:06:48.621352+00:00"
+    }
+  },
+  {
+    "model": "datasets.maragolidataset",
+    "pk": 31,
+    "fields": {
+      "maragoli_text": "Tsingalo",
+      "english_text": "Beans",
+      "category": 6,
+      "source": "Community elder",
+      "confidence_score": 1.0,
+      "is_validated": true,
+      "validated_by": null,
+      "content_hash": "f5ca9e147001aed65a9f98ad84c24ff85940496476b31690345458de5bd29a57",
+      "created_at": "2026-04-30T18:06:48.620827+00:00",
+      "updated_at": "2026-04-30T18:06:48.620837+00:00"
+    }
+  },
+  {
+    "model": "datasets.maragolidataset",
+    "pk": 30,
+    "fields": {
+      "maragoli_text": "Obusuma",
+      "english_text": "Ugali / Maize meal",
+      "category": 6,
+      "source": "Community elder",
+      "confidence_score": 1.0,
+      "is_validated": true,
+      "validated_by": null,
+      "content_hash": "142d603fd35ba32eb5c7c773cd41221d03195cf6ee939556ba0e6642aaa91060",
+      "created_at": "2026-04-30T18:06:48.620248+00:00",
+      "updated_at": "2026-04-30T18:06:48.620278+00:00"
+    }
+  },
+  {
+    "model": "datasets.maragolidataset",
+    "pk": 29,
+    "fields": {
+      "maragoli_text": "In-law - omulamu",
+      "english_text": "In-law",
+      "category": 5,
+      "source": "Community elder",
+      "confidence_score": 1.0,
+      "is_validated": true,
+      "validated_by": null,
+      "content_hash": "7a77d1096c2ebf087f8ad4ac4f778a3ef027be62d2af97781effe2697fadc267",
+      "created_at": "2026-04-30T18:06:48.619707+00:00",
+      "updated_at": "2026-04-30T18:06:48.619720+00:00"
+    }
+  },
+  {
+    "model": "datasets.maragolidataset",
+    "pk": 28,
+    "fields": {
+      "maragoli_text": "Mwana witsa",
+      "english_text": "Firstborn child",
+      "category": 5,
+      "source": "Community elder",
+      "confidence_score": 1.0,
+      "is_validated": true,
+      "validated_by": null,
+      "content_hash": "74329e6ef2899b82c7121aa5a33e789ac5b4364f0d1086ed308ac3d3f4a07b60",
+      "created_at": "2026-04-30T18:06:48.619077+00:00",
+      "updated_at": "2026-04-30T18:06:48.619090+00:00"
+    }
+  },
+  {
+    "model": "datasets.maragolidataset",
+    "pk": 27,
+    "fields": {
+      "maragoli_text": "Omusiani",
+      "english_text": "Husband / Man",
+      "category": 5,
+      "source": "Community elder",
+      "confidence_score": 1.0,
+      "is_validated": true,
+      "validated_by": null,
+      "content_hash": "d11a75c208a258f08744cd02b23a5c878eff177ab076f28216ddb803166717a0",
+      "created_at": "2026-04-30T18:06:48.618456+00:00",
+      "updated_at": "2026-04-30T18:06:48.618467+00:00"
+    }
+  },
+  {
+    "model": "datasets.maragolidataset",
+    "pk": 26,
+    "fields": {
+      "maragoli_text": "Mukhasi",
+      "english_text": "Wife / Woman",
+      "category": 5,
+      "source": "Community elder",
+      "confidence_score": 1.0,
+      "is_validated": true,
+      "validated_by": null,
+      "content_hash": "b0441966dad58cbdef67509d84b389bfe0e8a8b167257f23e2bbbbd9f33f9218",
+      "created_at": "2026-04-30T18:06:48.617846+00:00",
+      "updated_at": "2026-04-30T18:06:48.617860+00:00"
+    }
+  },
+  {
+    "model": "datasets.maragolidataset",
+    "pk": 25,
+    "fields": {
+      "maragoli_text": "Kholo",
+      "english_text": "Grandparent",
+      "category": 5,
+      "source": "Elder council",
+      "confidence_score": 1.0,
+      "is_validated": true,
+      "validated_by": null,
+      "content_hash": "df56d26a7abe29107e4f222e35e10824c1bdc1886bed8a5f8ff96fbe487e4d37",
+      "created_at": "2026-04-30T18:06:48.617187+00:00",
+      "updated_at": "2026-04-30T18:06:48.617198+00:00"
+    }
+  },
+  {
+    "model": "datasets.maragolidataset",
+    "pk": 24,
+    "fields": {
+      "maragoli_text": "Mwana",
+      "english_text": "Child",
+      "category": 5,
+      "source": "Community elder",
+      "confidence_score": 1.0,
+      "is_validated": true,
+      "validated_by": null,
+      "content_hash": "bc3d3e2a6c27539b276284c6e8ddd5792249e620b7ba9790a1a4d9ebc21d0cfc",
+      "created_at": "2026-04-30T18:06:48.616586+00:00",
+      "updated_at": "2026-04-30T18:06:48.616598+00:00"
+    }
+  },
+  {
+    "model": "datasets.maragolidataset",
+    "pk": 23,
+    "fields": {
+      "maragoli_text": "Sosa",
+      "english_text": "Father",
+      "category": 5,
+      "source": "Community elder",
+      "confidence_score": 1.0,
+      "is_validated": true,
+      "validated_by": null,
+      "content_hash": "439ffafe68752bdbdce1ce70a8297ae04e6d7df4e807e5e6435e8f4b55e17c4a",
+      "created_at": "2026-04-30T18:06:48.615983+00:00",
+      "updated_at": "2026-04-30T18:06:48.615993+00:00"
+    }
+  },
+  {
+    "model": "datasets.maragolidataset",
+    "pk": 22,
+    "fields": {
+      "maragoli_text": "Mama",
+      "english_text": "Mother",
+      "category": 5,
+      "source": "Community elder",
+      "confidence_score": 1.0,
+      "is_validated": true,
+      "validated_by": null,
+      "content_hash": "e30a334fca3cb341c3864ad5915b3d5398f7a70ddde5c357d6071a88bb8fbabc",
+      "created_at": "2026-04-30T18:06:48.615393+00:00",
+      "updated_at": "2026-04-30T18:06:48.615406+00:00"
+    }
+  },
+  {
+    "model": "datasets.maragolidataset",
+    "pk": 21,
+    "fields": {
+      "maragoli_text": "Enyasi yetsanga",
+      "english_text": "The wind is blowing",
+      "category": 4,
+      "source": "Field researcher",
+      "confidence_score": 1.0,
+      "is_validated": true,
+      "validated_by": null,
+      "content_hash": "582df77523011802009e933c65a14a92802939e2762d482721d08de10d3a1a85",
+      "created_at": "2026-04-30T18:06:48.614810+00:00",
+      "updated_at": "2026-04-30T18:06:48.614821+00:00"
+    }
+  },
+  {
+    "model": "datasets.maragolidataset",
+    "pk": 20,
+    "fields": {
+      "maragoli_text": "Amatsi ga matsikhulu",
+      "english_text": "Heavy rain",
+      "category": 4,
+      "source": "Community elder",
+      "confidence_score": 1.0,
+      "is_validated": true,
+      "validated_by": null,
+      "content_hash": "2cedefb5335830da2f14f5313e89afae81a608287fb360a8b2b102a105205321",
+      "created_at": "2026-04-30T18:06:48.614215+00:00",
+      "updated_at": "2026-04-30T18:06:48.614223+00:00"
+    }
+  },
+  {
+    "model": "datasets.maragolidataset",
+    "pk": 19,
+    "fields": {
+      "maragoli_text": "Olutsatsi",
+      "english_text": "The sun",
+      "category": 4,
+      "source": "Community elder",
+      "confidence_score": 1.0,
+      "is_validated": true,
+      "validated_by": null,
+      "content_hash": "0820bd8f33b092c7850736ebe169fd2897a7da2ac65d17834866ab635c002ab3",
+      "created_at": "2026-04-30T18:06:48.613646+00:00",
+      "updated_at": "2026-04-30T18:06:48.613684+00:00"
+    }
+  },
+  {
+    "model": "datasets.maragolidataset",
+    "pk": 18,
+    "fields": {
+      "maragoli_text": "Itsangatsi",
+      "english_text": "The moon",
+      "category": 4,
+      "source": "Community elder",
+      "confidence_score": 1.0,
+      "is_validated": true,
+      "validated_by": null,
+      "content_hash": "d9897c18ba48ead40f6ec83fd09528d1d695792401e1c81004860cf2fb400602",
+      "created_at": "2026-04-30T18:06:48.613053+00:00",
+      "updated_at": "2026-04-30T18:06:48.613067+00:00"
+    }
+  },
+  {
+    "model": "datasets.maragolidataset",
+    "pk": 17,
+    "fields": {
+      "maragoli_text": "Tsikhalaba tsiatsikhwire",
+      "english_text": "The sun has set",
+      "category": 4,
+      "source": "Field researcher",
+      "confidence_score": 1.0,
+      "is_validated": true,
+      "validated_by": null,
+      "content_hash": "eda66caeb4c32416c77c6ba1b53fe716d93788f98f22700e030302c6cf031012",
+      "created_at": "2026-04-30T18:06:48.612371+00:00",
+      "updated_at": "2026-04-30T18:06:48.612382+00:00"
+    }
+  },
+  {
+    "model": "datasets.maragolidataset",
+    "pk": 16,
+    "fields": {
+      "maragoli_text": "Igulu riamabwerere",
+      "english_text": "The sky is cloudy",
+      "category": 4,
+      "source": "Community elder",
+      "confidence_score": 1.0,
+      "is_validated": true,
+      "validated_by": null,
+      "content_hash": "d414a587dbf4e6beaca381c1bb998227eadba4eaf529fadb9fabb1e462ea2efe",
+      "created_at": "2026-04-30T18:06:48.611822+00:00",
+      "updated_at": "2026-04-30T18:06:48.611835+00:00"
+    }
+  },
+  {
+    "model": "datasets.maragolidataset",
+    "pk": 15,
+    "fields": {
+      "maragoli_text": "Omundu mukhongo atsikhalanga",
+      "english_text": "A good person does not lack friends",
+      "category": 3,
+      "source": "Elder council",
+      "confidence_score": 0.9,
+      "is_validated": true,
+      "validated_by": null,
+      "content_hash": "312bc3494d7ea1ea1c092a0b5930a929703019276ed04e469e8c56231f489a18",
+      "created_at": "2026-04-30T18:06:48.611180+00:00",
+      "updated_at": "2026-04-30T18:06:48.611190+00:00"
+    }
+  },
+  {
+    "model": "datasets.maragolidataset",
+    "pk": 14,
+    "fields": {
+      "maragoli_text": "Tsikhabalwa tsialole tsimbayi",
+      "english_text": "What was not discussed during the day cannot be discussed at night",
+      "category": 3,
+      "source": "Elder council",
+      "confidence_score": 0.9,
+      "is_validated": true,
+      "validated_by": null,
+      "content_hash": "73d7350ae86373029544cad9e0f7de36fba679bb28149c93808c40c478550a1c",
+      "created_at": "2026-04-30T18:06:48.610616+00:00",
+      "updated_at": "2026-04-30T18:06:48.610627+00:00"
+    }
+  },
+  {
+    "model": "datasets.maragolidataset",
+    "pk": 13,
+    "fields": {
+      "maragoli_text": "Omulavu aakhulire tsimbuli tsiasire khu mutsimu",
+      "english_text": "A person who has grown up with thorns cannot be pricked by a single thorn",
+      "category": 3,
+      "source": "Elder council",
+      "confidence_score": 0.9,
+      "is_validated": true,
+      "validated_by": null,
+      "content_hash": "8079eebe137d9545fdb87717cfe4fdc5d75b91717369541133120051cb619a6b",
+      "created_at": "2026-04-30T18:06:48.610063+00:00",
+      "updated_at": "2026-04-30T18:06:48.610073+00:00"
+    }
+  },
+  {
+    "model": "datasets.maragolidataset",
+    "pk": 12,
+    "fields": {
+      "maragoli_text": "Amatsi gabulire",
+      "english_text": "The rains have come",
+      "category": 2,
+      "source": "Community elder",
+      "confidence_score": 1.0,
+      "is_validated": true,
+      "validated_by": null,
+      "content_hash": "9650498b3b6627b974c7bcd6d16142f72ec7688ef5eb123092c68aa66ab80700",
+      "created_at": "2026-04-30T18:06:48.609502+00:00",
+      "updated_at": "2026-04-30T18:06:48.609512+00:00"
+    }
+  },
+  {
+    "model": "datasets.maragolidataset",
+    "pk": 11,
+    "fields": {
+      "maragoli_text": "Ndi yekhana",
+      "english_text": "I am eating",
+      "category": 2,
+      "source": "Community elder",
+      "confidence_score": 1.0,
+      "is_validated": true,
+      "validated_by": null,
+      "content_hash": "c6a5492a42565aef51c3bc1628d769727cfc737bcc12279421963bd26bc738cc",
+      "created_at": "2026-04-30T18:06:48.608972+00:00",
+      "updated_at": "2026-04-30T18:06:48.608983+00:00"
+    }
+  },
+  {
+    "model": "datasets.maragolidataset",
+    "pk": 10,
+    "fields": {
+      "maragoli_text": "Inzu yange",
+      "english_text": "My house",
+      "category": 2,
+      "source": "Field researcher",
+      "confidence_score": 1.0,
+      "is_validated": true,
+      "validated_by": null,
+      "content_hash": "f8bb4ec730ff13058b49f6b4bdfbf912de064e203e4add70d8ecbd55ddbffd7a",
+      "created_at": "2026-04-30T18:06:48.608401+00:00",
+      "updated_at": "2026-04-30T18:06:48.608412+00:00"
+    }
+  },
+  {
+    "model": "datasets.maragolidataset",
+    "pk": 9,
+    "fields": {
+      "maragoli_text": "Ndi muno nende",
+      "english_text": "I am fine",
+      "category": 2,
+      "source": "Community elder",
+      "confidence_score": 1.0,
+      "is_validated": true,
+      "validated_by": null,
+      "content_hash": "e1bef1b430d333be3ed2c46d2cb62165fa32576ea4c21f6e3dfc774c775cedca",
+      "created_at": "2026-04-30T18:06:48.607846+00:00",
+      "updated_at": "2026-04-30T18:06:48.607857+00:00"
+    }
+  },
+  {
+    "model": "datasets.maragolidataset",
+    "pk": 8,
+    "fields": {
+      "maragoli_text": "Enda murayo",
+      "english_text": "Go home",
+      "category": 2,
+      "source": "Community elder",
+      "confidence_score": 1.0,
+      "is_validated": true,
+      "validated_by": null,
+      "content_hash": "b2771805c7a15a0f776bb5ec60da6b99d2ef7526b75353ecf112c69388b4525d",
+      "created_at": "2026-04-30T18:06:48.607276+00:00",
+      "updated_at": "2026-04-30T18:06:48.607286+00:00"
+    }
+  },
+  {
+    "model": "datasets.maragolidataset",
+    "pk": 7,
+    "fields": {
+      "maragoli_text": "Ngoye ndikhusuva",
+      "english_text": "I am going to the river",
+      "category": 2,
+      "source": "Field researcher",
+      "confidence_score": 1.0,
+      "is_validated": true,
+      "validated_by": null,
+      "content_hash": "229555d7b01cea77f8ae33ee16456fd90d2615bc52dcc5ebb37eb2d40332bf41",
+      "created_at": "2026-04-30T18:06:48.606652+00:00",
+      "updated_at": "2026-04-30T18:06:48.606696+00:00"
+    }
+  },
+  {
+    "model": "datasets.maragolidataset",
+    "pk": 6,
+    "fields": {
+      "maragoli_text": "Enda mutinde",
+      "english_text": "Go well / Goodbye",
+      "category": 1,
+      "source": "Community gathering",
+      "confidence_score": 1.0,
+      "is_validated": true,
+      "validated_by": null,
+      "content_hash": "b39fffcf4b79ae0c361869a63eb1a9faf290c76948582253fbc2e6673ccd9dc0",
+      "created_at": "2026-04-30T18:06:48.605961+00:00",
+      "updated_at": "2026-04-30T18:06:48.605973+00:00"
+    }
+  },
+  {
+    "model": "datasets.maragolidataset",
+    "pk": 5,
+    "fields": {
+      "maragoli_text": "Sikhulu nende?",
+      "english_text": "Good morning",
+      "category": 1,
+      "source": "Community elder",
+      "confidence_score": 1.0,
+      "is_validated": true,
+      "validated_by": null,
+      "content_hash": "2b031d05cccff2aae7e84d46303dd1ed807a27ff0fefd39564f5c7509c69e0fe",
+      "created_at": "2026-04-30T18:06:48.605360+00:00",
+      "updated_at": "2026-04-30T18:06:48.605371+00:00"
+    }
+  },
+  {
+    "model": "datasets.maragolidataset",
+    "pk": 4,
+    "fields": {
+      "maragoli_text": "Mwenda",
+      "english_text": "Welcome",
+      "category": 1,
+      "source": "Community gathering",
+      "confidence_score": 1.0,
+      "is_validated": true,
+      "validated_by": null,
+      "content_hash": "d55b3215f7fe46e75385774c419fad556b7d9a001c4fe3e74f83e56497bc5605",
+      "created_at": "2026-04-30T18:06:48.604804+00:00",
+      "updated_at": "2026-04-30T18:06:48.604815+00:00"
+    }
+  },
+  {
+    "model": "datasets.maragolidataset",
+    "pk": 3,
+    "fields": {
+      "maragoli_text": "Ndakhusura",
+      "english_text": "I thank you",
+      "category": 1,
+      "source": "Community elder",
+      "confidence_score": 1.0,
+      "is_validated": true,
+      "validated_by": null,
+      "content_hash": "358ab2d575d592933e9ca9457c0beff87f3935cda9dfc43ad606c68deaf354bb",
+      "created_at": "2026-04-30T18:06:48.604202+00:00",
+      "updated_at": "2026-04-30T18:06:48.604214+00:00"
+    }
+  },
+  {
+    "model": "datasets.maragolidataset",
+    "pk": 2,
+    "fields": {
+      "maragoli_text": "Murembe muno",
+      "english_text": "How are you (very well)?",
+      "category": 1,
+      "source": "Community elder",
+      "confidence_score": 1.0,
+      "is_validated": true,
+      "validated_by": null,
+      "content_hash": "4a29362d4a239d3693da2f1ef6638aa486c30d3cc7e207d13bf15f9dfb2a0d0f",
+      "created_at": "2026-04-30T18:06:48.603533+00:00",
+      "updated_at": "2026-04-30T18:06:48.603546+00:00"
+    }
+  },
+  {
+    "model": "datasets.maragolidataset",
+    "pk": 1,
+    "fields": {
+      "maragoli_text": "Murembe",
+      "english_text": "How are you?",
+      "category": 1,
+      "source": "Community elder",
+      "confidence_score": 1.0,
+      "is_validated": true,
+      "validated_by": null,
+      "content_hash": "c041d1860f281517e2d66d8a68dc4603ef27c5a79b7e38e5e481e542af9c53c1",
+      "created_at": "2026-04-30T18:06:48.602710+00:00",
+      "updated_at": "2026-04-30T18:06:48.602724+00:00"
+    }
+  }
+]

@@ -1,0 +1,20 @@
+[
+{
+  "model": "auth.user",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$xGbQeOkIIhisVPw7GwxARc$iDq8knAQJ31cIKdqS2yrfWrtxttP0uxj1Rd5mcumVy4=",
+    "last_login": null,
+    "is_superuser": true,
+    "username": "admin",
+    "first_name": "",
+    "last_name": "",
+    "email": "admin@maragoli.llm",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2026-04-30T18:06:53.521Z",
+    "groups": [],
+    "user_permissions": []
+  }
+}
+]

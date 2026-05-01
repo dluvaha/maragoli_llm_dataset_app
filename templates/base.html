@@ -1,0 +1,158 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Maragoli LLM Dataset{% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            200: '#bfdbfe',
+                            300: '#93c5fd',
+                            400: '#60a5fa',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#1e3a8a',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Maragoli flag colors inspired */
+        :root {
+            --primary: #1d4ed8;
+            --success: #059669;
+            --warning: #d97706;
+            --danger: #dc2626;
+        }
+    </style>
+    {% block extra_css %}{% endblock %}
+</head>
+<body class="h-full bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex">
+                    <div class="flex-shrink-0 flex items-center">
+                        <a href="{% url 'dashboard' %}" class="flex items-center gap-3">
+                            <div class="w-8 h-8 bg-brand-600 rounded-lg flex items-center justify-center">
+                                <span class="text-white font-bold text-sm">M</span>
+                            </div>
+                            <span class="text-xl font-bold text-gray-900">Maragoli <span class="text-brand-600">LLM</span></span>
+                        </a>
+                    </div>
+                    {% if user.is_authenticated %}
+                    <div class="hidden sm:ml-8 sm:flex sm:space-x-2">
+                        <a href="{% url 'dashboard' %}" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-brand-600 hover:bg-brand-50 transition-colors {% if request.resolver_match.url_name == 'dashboard' %}text-brand-600 bg-brand-50{% endif %}">
+                            Dashboard
+                        </a>
+                        <a href="{% url 'dataset_list' %}" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-brand-600 hover:bg-brand-50 transition-colors {% if request.resolver_match.url_name == 'dataset_list' %}text-brand-600 bg-brand-50{% endif %}">
+                            Datasets
+                        </a>
+                        <a href="{% url 'import_preview' %}" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-brand-600 hover:bg-brand-50 transition-colors {% if 'import' in request.resolver_match.url_name %}text-brand-600 bg-brand-50{% endif %}">
+                            Import
+                        </a>
+                        <a href="{% url 'export_page' %}" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-brand-600 hover:bg-brand-50 transition-colors {% if 'export' in request.resolver_match.url_name %}text-brand-600 bg-brand-50{% endif %}">
+                            Export
+                        </a>
+                        <a href="{% url 'category_list' %}" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-brand-600 hover:bg-brand-50 transition-colors {% if 'category' in request.resolver_match.url_name %}text-brand-600 bg-brand-50{% endif %}">
+                            Categories
+                        </a>
+                        <a href="{% url 'user_list' %}" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-brand-600 hover:bg-brand-50 transition-colors {% if 'user' in request.resolver_match.url_name %}text-brand-600 bg-brand-50{% endif %}">
+                            Users
+                        </a>
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="hidden sm:flex sm:items-center sm:space-x-4">
+                    {% if user.is_authenticated %}
+                        <span class="text-sm text-gray-500">{{ user.get_full_name|default:user.username }}</span>
+                        <form method="post" action="{% url 'logout' %}">
+                            {% csrf_token %}
+                            <button type="submit" class="text-sm text-gray-500 hover:text-red-600 transition-colors">Logout</button>
+                        </form>
+                    {% else %}
+                        <a href="{% url 'login' %}" class="text-sm font-medium text-gray-700 hover:text-brand-600 transition-colors">Login</a>
+                        <a href="{% url 'register' %}" class="inline-flex items-center px-4 py-2 bg-brand-600 hover:bg-brand-700 text-white text-sm font-medium rounded-lg transition-colors">
+                            Register
+                        </a>
+                    {% endif %}
+                </div>
+                <!-- Mobile menu button -->
+                <div class="sm:hidden flex items-center">
+                    <button type="button" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" class="inline-flex items-center justify-center p-2 rounded-md text-gray-500 hover:text-gray-700 hover:bg-gray-100">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden sm:hidden border-t border-gray-200">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                {% if user.is_authenticated %}
+                <a href="{% url 'dashboard' %}" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-brand-50 hover:text-brand-600">Dashboard</a>
+                <a href="{% url 'dataset_list' %}" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-brand-50 hover:text-brand-600">Datasets</a>
+                <a href="{% url 'import_preview' %}" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-brand-50 hover:text-brand-600">Import</a>
+                <a href="{% url 'export_page' %}" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-brand-50 hover:text-brand-600">Export</a>
+                <a href="{% url 'category_list' %}" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-brand-50 hover:text-brand-600">Categories</a>
+                <a href="{% url 'user_list' %}" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-brand-50 hover:text-brand-600">Users</a>
+                <div class="border-t border-gray-200 pt-2 mt-2">
+                    <span class="block px-3 py-2 text-sm text-gray-500">{{ user.get_full_name|default:user.username }}</span>
+                    <form method="post" action="{% url 'logout' %}">
+                        {% csrf_token %}
+                        <button type="submit" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-red-600 hover:bg-red-50">Logout</button>
+                    </form>
+                </div>
+                {% else %}
+                <a href="{% url 'login' %}" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-brand-50 hover:text-brand-600">Login</a>
+                <a href="{% url 'register' %}" class="block px-3 py-2 rounded-md text-base font-medium text-brand-600 hover:bg-brand-50">Register</a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+
+    <!-- Flash Messages -->
+    {% if messages %}
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4">
+        {% for message in messages %}
+        <div class="mb-2 p-3 rounded-lg flex items-center justify-between
+            {% if message.tags == 'success' %}bg-green-50 border border-green-200 text-green-800
+            {% elif message.tags == 'warning' %}bg-yellow-50 border border-yellow-200 text-yellow-800
+            {% elif message.tags == 'error' %}bg-red-50 border border-red-200 text-red-800
+            {% else %}bg-blue-50 border border-blue-200 text-blue-800{% endif %}">
+            <span class="text-sm font-medium">{{ message }}</span>
+            <button type="button" onclick="this.parentElement.remove()" class="ml-2 text-current opacity-50 hover:opacity-100">&times;</button>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-gray-200 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <p class="text-center text-sm text-gray-500">Maragoli LLM Dataset Collection System &mdash; Preserving Language Through Technology</p>
+        </div>
+    </footer>
+
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

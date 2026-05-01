@@ -1,0 +1,339 @@
+{% extends 'base.html' %}
+
+{% block title %}Export Training Data — Maragoli LLM Dataset{% endblock %}
+
+{% block content %}
+<div class="max-w-5xl mx-auto">
+    <!-- Header -->
+    <div class="mb-6">
+        <h1 class="text-2xl font-bold text-gray-900">Export Training Data</h1>
+        <p class="mt-1 text-sm text-gray-500">Download your dataset in multiple formats for LLM training and analysis</p>
+    </div>
+
+    <!-- Quick Stats Banner -->
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
+        <div class="bg-white shadow rounded-lg p-4 text-center">
+            <p class="text-2xl font-bold text-gray-900">{{ total_datasets }}</p>
+            <p class="text-xs text-gray-500 mt-1">Total Entries</p>
+        </div>
+        <div class="bg-white shadow rounded-lg p-4 text-center">
+            <p class="text-2xl font-bold text-green-600">{{ validated_count }}</p>
+            <p class="text-xs text-gray-500 mt-1">Validated</p>
+        </div>
+        <div class="bg-white shadow rounded-lg p-4 text-center">
+            <p class="text-2xl font-bold text-yellow-600">{{ unvalidated_count }}</p>
+            <p class="text-xs text-gray-500 mt-1">Unvalidated</p>
+        </div>
+        <div class="bg-white shadow rounded-lg p-4 text-center">
+            <p class="text-2xl font-bold text-blue-600">{{ categories|length }}</p>
+            <p class="text-xs text-gray-500 mt-1">Categories</p>
+        </div>
+    </div>
+
+    <!-- ════════════════════════════════════════════════════════════════════ -->
+    <!-- FILTER BAR                                                         -->
+    <!-- ════════════════════════════════════════════════════════════════════ -->
+    <form method="get" action="{% url 'export_page' %}" class="bg-white shadow rounded-lg p-5 mb-6">
+        <h3 class="text-sm font-semibold text-gray-700 mb-3 flex items-center">
+            <svg class="w-4 h-4 mr-2 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/>
+            </svg>
+            Export Filters
+        </h3>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div>
+                <label for="filter-category" class="block text-xs font-medium text-gray-600 mb-1">Category</label>
+                <select name="category" class="w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 px-3 py-2 text-sm border">
+                    <option value="">All Categories</option>
+                    {% for cat in categories %}
+                    <option value="{{ cat.id }}" {% if selected_category == cat.id|stringformat:"s" %}selected{% endif %}>{{ cat.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div>
+                <label for="filter-validated" class="block text-xs font-medium text-gray-600 mb-1">Validation Status</label>
+                <select name="validated_only" class="w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 px-3 py-2 text-sm border">
+                    <option value="false" {% if not validated_only %}selected{% endif %}>All Entries</option>
+                    <option value="true" {% if validated_only %}selected{% endif %}>Validated Only</option>
+                </select>
+            </div>
+            <div class="flex items-end">
+                <button type="submit" class="w-full px-4 py-2 text-sm font-medium text-blue-700 bg-blue-50 border border-blue-200 rounded-lg hover:bg-blue-100 transition-colors">
+                    <svg class="w-4 h-4 inline mr-1 -mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+                    Apply Filters
+                </button>
+            </div>
+        </div>
+    </form>
+
+    <!-- ════════════════════════════════════════════════════════════════════ -->
+    <!-- JSON FORMATS                                                       -->
+    <!-- ════════════════════════════════════════════════════════════════════ -->
+    <h2 class="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4 flex items-center">
+        <span class="inline-block w-8 h-px bg-gray-300 mr-3"></span>
+        JSON Formats
+        <span class="inline-block w-8 h-px bg-gray-300 ml-3"></span>
+    </h2>
+
+    <div class="space-y-4 mb-10">
+        <!-- Standard Parallel Corpus -->
+        <div class="bg-white shadow rounded-lg overflow-hidden">
+            <div class="p-5">
+                <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+                    <div class="flex-1">
+                        <div class="flex items-center gap-2">
+                            <h3 class="text-base font-semibold text-gray-900">Standard Parallel Corpus</h3>
+                            <span class="px-2 py-0.5 rounded text-xs font-bold bg-blue-100 text-blue-700">.json</span>
+                        </div>
+                        <p class="mt-1 text-sm text-gray-500">Clean parallel corpus with Maragoli-English pairs. Best for general NLP, machine translation, and LM pre-training.</p>
+                    </div>
+                    <div class="flex-shrink-0 sm:text-right">
+                        <div class="text-xs text-gray-500 mb-1">
+                            <strong>{{ format_summaries.0.total_entries }}</strong> entries &middot; <strong>{{ format_summaries.0.file_size_human }}</strong>
+                        </div>
+                        <button onclick="downloadWithPicker('standard', '.json')"
+                                class="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors shadow-sm cursor-pointer">
+                            <svg class="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                            Save As .json
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Instruction-Response -->
+        <div class="bg-white shadow rounded-lg overflow-hidden">
+            <div class="p-5">
+                <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+                    <div class="flex-1">
+                        <div class="flex items-center gap-2">
+                            <h3 class="text-base font-semibold text-gray-900">Instruction-Response (Alpaca-style)</h3>
+                            <span class="px-2 py-0.5 rounded text-xs font-bold bg-green-100 text-green-700">.json</span>
+                        </div>
+                        <p class="mt-1 text-sm text-gray-500">Alpaca instruction tuning format. Ideal for SFT of instruction-following models like LLaMA, Mistral.</p>
+                    </div>
+                    <div class="flex-shrink-0 sm:text-right">
+                        <div class="text-xs text-gray-500 mb-1">
+                            <strong>{{ format_summaries.1.total_entries }}</strong> entries &middot; <strong>{{ format_summaries.1.file_size_human }}</strong>
+                        </div>
+                        <button onclick="downloadWithPicker('training', '.json')"
+                                class="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-green-600 rounded-lg hover:bg-green-700 transition-colors shadow-sm cursor-pointer">
+                            <svg class="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                            Save As .json
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Conversational -->
+        <div class="bg-white shadow rounded-lg overflow-hidden">
+            <div class="p-5">
+                <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+                    <div class="flex-1">
+                        <div class="flex items-center gap-2">
+                            <h3 class="text-base font-semibold text-gray-900">Conversational (ChatML)</h3>
+                            <span class="px-2 py-0.5 rounded text-xs font-bold bg-purple-100 text-purple-700">.json</span>
+                        </div>
+                        <p class="mt-1 text-sm text-gray-500">Chat format with system/user/assistant messages. Compatible with ChatML and OpenAI fine-tuning API.</p>
+                    </div>
+                    <div class="flex-shrink-0 sm:text-right">
+                        <div class="text-xs text-gray-500 mb-1">
+                            <strong>{{ format_summaries.2.total_entries }}</strong> entries &middot; <strong>{{ format_summaries.2.file_size_human }}</strong>
+                        </div>
+                        <button onclick="downloadWithPicker('conversation', '.json')"
+                                class="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-purple-600 rounded-lg hover:bg-purple-700 transition-colors shadow-sm cursor-pointer">
+                            <svg class="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                            Save As .json
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ════════════════════════════════════════════════════════════════════ -->
+    <!-- OTHER FORMATS                                                      -->
+    <!-- ════════════════════════════════════════════════════════════════════ -->
+    <h2 class="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4 flex items-center">
+        <span class="inline-block w-8 h-px bg-gray-300 mr-3"></span>
+        Other Formats
+        <span class="inline-block w-8 h-px bg-gray-300 ml-3"></span>
+    </h2>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
+        <!-- JSONL -->
+        <div class="bg-white shadow rounded-lg overflow-hidden">
+            <div class="p-5">
+                <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+                    <div class="flex-1">
+                        <div class="flex items-center gap-2">
+                            <h3 class="text-base font-semibold text-gray-900">JSON Lines</h3>
+                            <span class="px-2 py-0.5 rounded text-xs font-bold bg-amber-100 text-amber-700">.jsonl</span>
+                        </div>
+                        <p class="mt-1 text-sm text-gray-500">One JSON object per line. Ideal for streaming, Hugging Face datasets, and large-scale processing.</p>
+                    </div>
+                    <div class="flex-shrink-0 sm:text-right">
+                        <div class="text-xs text-gray-500 mb-1">
+                            <strong>{{ format_summaries.3.total_entries }}</strong> entries &middot; <strong>{{ format_summaries.3.file_size_human }}</strong>
+                        </div>
+                        <button onclick="downloadWithPicker('jsonl', '.jsonl')"
+                                class="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-amber-600 rounded-lg hover:bg-amber-700 transition-colors shadow-sm cursor-pointer">
+                            <svg class="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                            Save As .jsonl
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CSV -->
+        <div class="bg-white shadow rounded-lg overflow-hidden">
+            <div class="p-5">
+                <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+                    <div class="flex-1">
+                        <div class="flex items-center gap-2">
+                            <h3 class="text-base font-semibold text-gray-900">CSV Tabular Data</h3>
+                            <span class="px-2 py-0.5 rounded text-xs font-bold bg-teal-100 text-teal-700">.csv</span>
+                        </div>
+                        <p class="mt-1 text-sm text-gray-500">Comma-separated table. Opens in Excel, Google Sheets, or any spreadsheet tool.</p>
+                    </div>
+                    <div class="flex-shrink-0 sm:text-right">
+                        <div class="text-xs text-gray-500 mb-1">
+                            <strong>{{ format_summaries.4.total_entries }}</strong> entries &middot; <strong>{{ format_summaries.4.file_size_human }}</strong>
+                        </div>
+                        <button onclick="downloadWithPicker('csv', '.csv')"
+                                class="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-teal-600 rounded-lg hover:bg-teal-700 transition-colors shadow-sm cursor-pointer">
+                            <svg class="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                            Save As .csv
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Info Banner -->
+    <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
+        <div class="flex items-start">
+            <svg class="w-5 h-5 text-blue-500 mr-3 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            <div class="text-sm text-blue-800">
+                <p><strong>How to use:</strong> Click <strong>"Save As"</strong> on any format. Your browser will open a <strong>"Save As" dialog</strong> where you can pick any location &mdash; flash disk, external drive, or any folder on your computer. Use the filters above to narrow down which entries to export.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ─── Download Overlay (shown while file is being prepared) ─── -->
+<div id="download-overlay" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/40">
+    <div class="bg-white rounded-xl shadow-2xl p-8 text-center max-w-sm mx-4">
+        <svg class="animate-spin h-10 w-10 text-blue-600 mx-auto mb-4" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+        </svg>
+        <h3 class="text-lg font-semibold text-gray-900 mb-1">Preparing your file&hellip;</h3>
+        <p id="download-overlay-text" class="text-sm text-gray-500">Fetching data from server</p>
+    </div>
+</div>
+
+<script>
+// ─── Read current filter params from the URL ──────────────────────────
+function getFilterParams() {
+    const params = new URLSearchParams(window.location.search);
+    const result = {};
+    if (params.get('category')) result.category = params.get('category');
+    if (params.get('validated_only') === 'true') result.validated_only = 'true';
+    return result;
+}
+
+function buildDownloadURL(format) {
+    const base = "{% url 'export_download' %}";
+    const qs = new URLSearchParams({ format: format, ...getFilterParams() });
+    return base + '?' + qs.toString();
+}
+
+function getDefaultFilename(format, ext) {
+    return 'maragoli_llm_training_data_' + format + ext;
+}
+
+function getMimeType(ext) {
+    const types = {
+        '.json': 'application/json',
+        '.jsonl': 'application/x-ndjson',
+        '.csv': 'text/csv'
+    };
+    return types[ext] || 'application/octet-stream';
+}
+
+// ─── Show / hide the loading overlay ──────────────────────────────────
+function showOverlay(text) {
+    const overlay = document.getElementById('download-overlay');
+    const overlayText = document.getElementById('download-overlay-text');
+    overlayText.textContent = text || 'Fetching data from server';
+    overlay.classList.remove('hidden');
+    overlay.classList.add('flex');
+}
+function hideOverlay() {
+    const overlay = document.getElementById('download-overlay');
+    overlay.classList.add('hidden');
+    overlay.classList.remove('flex');
+}
+
+// ─── Main download function ───────────────────────────────────────────
+async function downloadWithPicker(format, ext) {
+    const suggestedName = getDefaultFilename(format, ext);
+    const mimeType = getMimeType(ext);
+    const downloadURL = buildDownloadURL(format);
+
+    // ── Method 1: File System Access API (native Save As dialog) ──
+    if ('showSaveFilePicker' in window) {
+        try {
+            showOverlay('Choose where to save the file\u2026');
+
+            const handle = await window.showSaveFilePicker({
+                suggestedName: suggestedName,
+                types: [{
+                    description: ext.toUpperCase() + ' files',
+                    accept: { [mimeType]: [ext] }
+                }]
+            });
+
+            showOverlay('Downloading data\u2026');
+
+            const response = await fetch(downloadURL);
+            if (!response.ok) throw new Error('Download failed: ' + response.status);
+
+            const blob = await response.blob();
+            const writable = await handle.createWritable();
+            await writable.write(blob);
+            await writable.close();
+
+            hideOverlay();
+            return; // done!
+
+        } catch (err) {
+            hideOverlay();
+            // User cancelled the picker dialog — silently exit
+            if (err.name === 'AbortError') return;
+            // Any other error — fall through to fallback
+            console.warn('showSaveFilePicker failed, falling back:', err);
+        }
+    }
+
+    // ── Method 2: Fallback — standard download with Content-Disposition ──
+    showOverlay('Downloading file\u2026');
+    const link = document.createElement('a');
+    link.href = downloadURL;
+    link.download = suggestedName;
+    link.style.display = 'none';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+
+    // Hide overlay after a short delay to let the download start
+    setTimeout(hideOverlay, 1500);
+}
+</script>
+{% endblock %}
